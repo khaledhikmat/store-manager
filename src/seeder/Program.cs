@@ -1,4 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿/* 
+Please note that I had to make the app-id equals the actors app id so I can share the state storage.
+Dapr seems to append the application name to the Redis keys!! 
+*/
 using Dapr.Client;
 using Shared.Services;
 using Shared.Models;
