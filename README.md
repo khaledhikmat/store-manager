@@ -86,11 +86,28 @@ Alternatively, you can access Docker CLI:
 docker exec -it dapr_redis redis-cli
 ```
 
+## Start
+
+- Clean Redis: 
+```
+FLUSHALL
+```
+
+- Make sure:
+```
+KEYS *
+```
+
+## Docker
+
+Docker files have to be at the roor because they need to include the shared library.
+
 ## Notes
 - Draw Mermaid diagram
-- How can state be shared among different services, given that Dapr appends the application name in the key i.e. `myapp||mykey`?
+- How can state be shared among different services, given that Dapr appends the application name in the key i.e. `myapp||mykey`? Answer: [https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-share-state/](https://docs.dapr.io/developing-applications/building-blocks/state-management/howto-share-state/)
 - Randomize pumper ...although it is not very significant
-- How about `Tye` with local DAPR?
+- How about `Tye` with local DAPR? Not important
 - How about Azure Container Apps?
 - How about local K8s?
 - How about local Docker Compose?
+- Use Azure Bicep to deploy using Github actions

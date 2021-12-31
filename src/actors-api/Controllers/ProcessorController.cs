@@ -8,10 +8,12 @@ This controller processes orders asynchornoulsy from a Pub/Sub topic queue
 public class ProcessorController : ControllerBase
 {
     private readonly ILogger<ProcessorController> _logger;
+    private IEntityStateService _externalizationService;
 
-    public ProcessorController(ILogger<ProcessorController> logger)
+    public ProcessorController(IEntityStateService service, ILogger<ProcessorController> logger)
     {
         _logger = logger;
+        _externalizationService = service;
     }
 
     [Topic("pubsub", "orders")]
@@ -21,8 +23,12 @@ public class ProcessorController : ControllerBase
     {
         try
         {
-             _logger.LogInformation($"ProcessOrderAsync - {order.StoreId}");
-           var actorId = new ActorId(order.StoreId);
+            _logger.LogInformation($"ProcessOrderAsync - {order.StoreId}");
+
+            // Not the best way, but check to make sure that the actors have data to initialize
+            await _externalizationService.Seed();
+
+            var actorId = new ActorId(order.StoreId);
             var proxy = ActorProxy.Create<IEntityActor>(actorId, nameof(EntityActor));
             await proxy.SubmitOrderAsync(order);
             return Ok();
