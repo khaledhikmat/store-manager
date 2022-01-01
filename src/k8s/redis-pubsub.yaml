@@ -1,0 +1,24 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: pubsub
+  namespace: dapr-storemanager
+spec:
+  type: pubsub.redis
+  version: v1
+  metadata:
+  - name: redisHost
+    value: redis:6379
+  - name: redisPassword
+    secretKeyRef:
+      name: pubsub.redisPassword
+      key: pubsub.redisPassword
+  - name: consumerID
+    value: "myGroup"
+  - name: enableTLS
+    value: "false"
+auth:
+  secretStore: storemanager-secrets
+scopes:
+  - storemanageractors
+  - storemanagerorders

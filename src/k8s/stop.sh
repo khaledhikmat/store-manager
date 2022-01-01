@@ -1,0 +1,11 @@
+kubectl delete \
+    -f orders-api.yaml \
+    -f entities-api.yaml \
+    -f actors-api.yaml \
+    -f redis-pubsub.yaml \
+    -f redis-store.yaml \
+    -f redis.yaml \
+    -f zipkin.yaml \
+    -f dapr-config.yaml \
+    -f secrets.yaml \
+    -f namespace.yaml \

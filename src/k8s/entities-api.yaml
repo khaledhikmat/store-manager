@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storemanagerentities
+  namespace: dapr-storemanager
+  labels:
+    app: storemanagerentities
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storemanagerentities
+  template:
+    metadata:
+      labels:
+        app: storemanagerentities
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "storemanagerentities"
+        dapr.io/app-port: "6002"
+        dapr.io/config: "dapr-config"
+    spec:
+      containers:
+      - name: storemanagerentities
+        image: store-manager/entities:1.0
+        ports:
+        - containerPort: 6002
+

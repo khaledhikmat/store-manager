@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storemanagerorders
+  namespace: dapr-storemanager
+  labels:
+    app: storemanagerorders
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storemanagerorders
+  template:
+    metadata:
+      labels:
+        app: storemanagerorders
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "storemanagerorders"
+        dapr.io/app-port: "6001"
+        dapr.io/config: "dapr-config"
+    spec:
+      containers:
+      - name: storemanagerorders
+        image: store-manager/orders:1.0
+        ports:
+        - containerPort: 6001
+

@@ -1,0 +1,11 @@
+kubectl apply \
+    -f namespace.yaml \
+    -f secrets.yaml \
+    -f dapr-config.yaml \
+    -f zipkin.yaml \
+    -f redis.yaml \
+    -f redis-store.yaml \
+    -f redis-pubsub.yaml \
+    -f actors-api.yaml \
+    -f entities-api.yaml \
+    -f orders-api.yaml
