@@ -1,0 +1,9 @@
+# Azure Container Apps does not currently support DAPR Component Schema. 
+# So this file uses possible schema that works!! 
+# components.yaml for Azure Service Bus component
+- name: pubsub
+  type: pubsub.azure.servicebus
+  version: v1
+  metadata:
+  - name: connectionString # Required
+    value: "connection-string-url-goes-here"
