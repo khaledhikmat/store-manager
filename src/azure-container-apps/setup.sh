@@ -159,7 +159,3 @@ az containerapp update \
   --enable-dapr \
   --dapr-app-port 8080 \
   --dapr-app-id node-hello
-
-# Delete the resource group
-az group delete \
-  --resource-group $RESOURCE_GROUP
