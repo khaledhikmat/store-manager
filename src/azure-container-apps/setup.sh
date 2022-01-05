@@ -56,14 +56,9 @@ az servicebus topic create --resource-group $RESOURCE_GROUP --namespace-name $CO
 ## WARNING: How to retrieve service bus connection string from AZ?!!!
 
 # Create Redis Cache
-az redis create 
-  --name storemanager6 
-  --resource-group $RESOURCE_GROUP 
-  --location $LOCATION 
-  --sku Basic 
-  --vm-size C0
-  --enable-non-ssl-port
-  --redis-version 6
+az redis create --name storemanager6 --resource-group $RESOURCE_GROUP --location $LOCATION --sku Basic --vm-size C0 --enable-non-ssl-port --redis-version 6
+
+## Pick up Redis host name and key from Azure portal and update the components.yaml file. key is Redis password.
 
 # cd to azure-container-apps
 # Create Actors App
