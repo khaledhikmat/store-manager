@@ -1,10 +1,3 @@
-# az cli
-az login
-az upgrade
-az extension add \
-  --source https://workerappscliextension.blob.core.windows.net/azure-cli-extension/containerapp-0.2.0-py2.py3-none-any.whl
-az provider register --namespace Microsoft.Web
-
 # Set environment variables
 RESOURCE_GROUP="storemanager-rg"
 LOCATION="canadacentral"
@@ -14,6 +7,13 @@ CONTAINERAPPS_STORAGE_ACCOUNT="storemanagerstorage"
 CONTAINERAPPS_STORAGE_CONTAINER="stateandactors"
 CONTAINERAPPS_PUBSUB_NAMESPACE=storemanager$RANDOM
 CONTAINERAPPS_PUBSUB_TOPIC="orders"
+
+# az cli
+az login
+az upgrade
+az extension add \
+  --source https://workerappscliextension.blob.core.windows.net/azure-cli-extension/containerapp-0.2.0-py2.py3-none-any.whl
+az provider register --namespace Microsoft.Web
 
 # az resources
 az group create \
@@ -36,6 +36,24 @@ az containerapp env create \
   --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_CLIENT_ID \
   --logs-workspace-key $LOG_ANALYTICS_WORKSPACE_CLIENT_SECRET \
   --location "$LOCATION"
+
+# Create an Azure Blob Storage Account to store state
+az storage account create \
+  --name $CONTAINERAPPS_STORAGE_ACCOUNT \
+  --resource-group $RESOURCE_GROUP \
+  --location "$LOCATION" \
+  --sku Standard_RAGRS \
+  --kind StorageV2
+
+STORAGE_ACCOUNT_KEY=`az storage account keys list --resource-group $RESOURCE_GROUP --account-name $CONTAINERAPPS_STORAGE_ACCOUNT --query '[0].value' --out tsv`
+echo $STORAGE_ACCOUNT_KEY
+
+# Create an Azure Service Bus namespace and topic
+az servicebus namespace create --resource-group $RESOURCE_GROUP --name $CONTAINERAPPS_PUBSUB_NAMESPACE --location $LOCATION
+
+az servicebus topic create --resource-group $RESOURCE_GROUP --namespace-name $CONTAINERAPPS_PUBSUB_NAMESPACE --name $CONTAINERAPPS_PUBSUB_TOPIC
+
+## WARNING: How to retrieve service bus connection string from AZ?!!!
 
 # Create Redis Cache
 az redis create --name storemanager6 --resource-group $RESOURCE_GROUP --location $LOCATION --sku Basic --vm-size C0 --enable-non-ssl-port --redis-version 6

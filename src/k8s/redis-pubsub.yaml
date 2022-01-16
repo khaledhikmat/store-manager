@@ -10,9 +10,7 @@ spec:
   - name: redisHost
     value: redis:6379
   - name: redisPassword
-    secretKeyRef:
-      name: pubsub.redisPassword
-      key: pubsub.redisPassword
+    value: ""
   - name: consumerID
     value: "myGroup"
   - name: enableTLS

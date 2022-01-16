@@ -41,4 +41,4 @@ app.MapSubscribeHandler();
 app.MapActorsHandlers();
 
 //Start
-app.Run("http://localhost:6000");
+app.Run("http://0.0.0.0:6000");

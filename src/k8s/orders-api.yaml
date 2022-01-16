@@ -26,3 +26,21 @@ spec:
         ports:
         - containerPort: 6001
 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: storemanagerorders
+  name: storemanagerorders
+  namespace: dapr-storemanager
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "data"
+    port: 6001
+    targetPort: 6001
+  selector:
+    app: storemanagerorders
+

@@ -8,6 +8,13 @@ builder.Services.AddControllers().AddDapr();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
+    .SetMinimumLevel(LogLevel.Trace)
+    .AddConsole());
+
+ILogger logger = loggerFactory.CreateLogger<Program>();
+logger.LogInformation("entities-api is starting....");
+
 var daprHttpPort = Environment.GetEnvironmentVariable("DAPR_HTTP_PORT") ?? "3602";
 var daprGrpcPort = Environment.GetEnvironmentVariable("DAPR_GRPC_PORT") ?? "60002";
 builder.Services.AddDaprClient(builder => builder
@@ -30,4 +37,5 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 
 //Start
-app.Run("http://localhost:6002");
+logger.LogInformation("entities-api is about to run....yay3");
+app.Run("http://0.0.0.0:6002");

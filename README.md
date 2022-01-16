@@ -68,6 +68,10 @@ dotnet add package Dapr.Actors.AspNetCore
 dotnet add actors-api/actors-api.csproj reference shared/shared.csproj
 ```
 
+```
+dotnet add package Radzen.Blazor
+```
+
 ## Services
 
 | Microservice | Application Port | Dapr sidecar HTTP port | Dapr sidecar gRPC port |
@@ -109,13 +113,28 @@ FLUSHALL
 KEYS *
 ```
 
+If funning in k8s, do `docker ps` to discover the container name of the REDIS running in K8s. and then do the above docker command:
+
+```bash
+docker exec -it k8s_redis_redis-75db659ddc-q6jfn_dapr-storemanager_b116ad62-7b4e-4a75-968f-39f84ce8a16c_0 redis-cli
+```
+
+
 ## Docker
 
 Docker files have to be at the roor because they need to include the shared library.
 
+```bash
+docker image build -t store-manager/entities:1.0 . -f Dockerfile-entities
+docker container run -it  -p 6002:6002 store-manager/entities:1.0
+docker inspect <container-id>
+```
+
+Make sure the ASP.Net core project run using `0.0.0.0` as opposed to `localhost`. Otherwise the error is `socket hang` whikle running in Docker.
+
 ## Kubernetes
 
-```
+```bash
 bash ./start.sh
 kubectl get pods -n dapr-storemanager
 basg ./stop.sh
