@@ -1,0 +1,17 @@
+apiVersion: v2
+name: storemanager
+version: 0.1.0
+description: A Helm chart for storemanager
+type: application
+keywords:
+  - dapr
+  - azure
+  - container
+  - apps
+home: 
+sources:
+  - https://github.com/khaledhikmat/store-manager
+maintainers:
+  - name: Khaled Hikmat
+    email: somethings@gmail.com
+    url: https://github.com/khaledhikmat

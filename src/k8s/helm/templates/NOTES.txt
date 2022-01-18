@@ -1,0 +1,7 @@
+Thanl you for installing {{ .Chart.Name }}.
+
+You release name is {{ .Release.Name }}. For now, this is stupid....I am not replacing any value!!
+
+to learn more, try:
+$ helm status {{ .Release.Name }}
+$ helm get all {{ .Release.Name }}
