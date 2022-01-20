@@ -132,6 +132,18 @@ docker inspect <container-id>
 
 Make sure the ASP.Net core project run using `0.0.0.0` as opposed to `localhost`. Otherwise the error is `socket hang` whikle running in Docker.
 
+You can also get into the Docker container:
+
+```
+docker run  -it store-manager/entities:1.0 /bin/bash
+```
+
+To push to Docker hub:
+
+```
+docker login
+docker push khaledhikmat/image-name:tag
+```
 ## Kubernetes
 
 ```bash
